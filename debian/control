@@ -1,0 +1,24 @@
+Source: fsleyes-widgets
+Maintainer: NeuroDebian Team <team@neuro.debian.net>
+Uploaders: Michael Hanke <mih@debian.org>
+Section: python
+Priority: optional
+Build-Depends: debhelper (>= 9),
+               dh-python,
+               python-all,
+               python-setuptools,
+Standards-Version: 3.9.8
+X-Python-Version: >= 2.7
+
+Package: python-fsleyes-widgets
+Architecture: all
+Section: python
+Depends: python-wxgtk3.0,
+         python-six (>= 1.0~),
+         ${misc:Depends},
+         ${python:Depends},
+Provides: ${python:Provides}
+Description: Python descriptor framework
+ A collection of GUI widgets and utilities, based on wxPython.
+ .
+ This package provides the Python 2 module.

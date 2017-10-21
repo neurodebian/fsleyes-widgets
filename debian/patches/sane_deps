@@ -1,0 +1,10 @@
+diff --git a/requirements.txt b/requirements.txt
+index 0d2698b3..fb5c0dc8 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-six==1.*
++#six==1.*
+ numpy==1.*
+ matplotlib>=1.5,<3
+ wxPython>=3.0.2.0,<4.1

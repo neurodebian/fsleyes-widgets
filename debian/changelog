@@ -1,0 +1,5 @@
+fsleyes-widgets (0.1.0-1) neurodebian; urgency=low
+
+  * Initial release.
+
+ -- Michael Hanke <mih@debian.org>  Thu, 27 Apr 2017 11:15:40 +0200
