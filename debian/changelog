@@ -1,3 +1,10 @@
+fsleyes-widgets (0.2.0-1) neurodebian; urgency=medium
+
+  * New upstream release.
+    - fixes PY2 compatibility issues.
+
+ -- Michael Hanke <mih@debian.org>  Fri, 24 Nov 2017 07:52:55 +0100
+
 fsleyes-widgets (0.1.0-1) neurodebian; urgency=low
 
   * Initial release.
