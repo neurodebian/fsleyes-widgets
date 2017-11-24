@@ -8,6 +8,10 @@
 import time
 import wx
 
+import numpy as np
+
+import mock
+
 from . import run_with_wx, simclick, simtext, simkey, realYield
 
 from fsleyes_widgets import isalive
@@ -19,11 +23,14 @@ def test_Bounce():
 def _test_Bounce():
 
     endfuncs = ['Close', 'EndModal', 'Destroy']
-    delay    = 200
+    delay    = 200  # msecs
+    centis   = delay / 10
+    values   = list(np.arange(50))
+    passed   = [True]
 
     for endfunc in endfuncs:
 
-        dlg = progress.Bounce('Title', 'Message', delay=delay)
+        dlg = progress.Bounce('Title', 'Message', delay=delay, values=values)
 
         dlg.StartBounce()
 
@@ -32,12 +39,11 @@ def _test_Bounce():
 
             for i in range(10):
 
-                realYield((delay + 10) / 10)
-
+                realYield(centis + 0.5 * centis)
                 newval = dlg.GetValue()
 
-                assert newval != value
-                value = newval
+                passed[0] = passed[0] and (newval != value)
+                value     = newval
 
             value = dlg.GetValue()
             getattr(dlg, endfunc)()
@@ -45,13 +51,18 @@ def _test_Bounce():
             realYield((delay * 2) / 10)
 
             if isalive(dlg):
-                assert dlg.GetValue() == value
+                passed[0] = passed[0] and (dlg.GetValue() == value)
 
         if endfunc == 'EndModal':
             wx.CallAfter(eval)
             dlg.ShowModal()
         else:
+            dlg.Show()
             eval()
+        if endfunc is not 'Destroy':
+            dlg.Destroy()
+        dlg = None
+        assert passed[0]
 
 
 def test_runWithBounce():
@@ -77,12 +88,7 @@ def _test_runWithBounce_cancel():
         for i in range(10):
             time.sleep(1)
 
-    sim = wx.UIActionSimulator()
     dlg = progress.Bounce('Title', 'message', style=wx.PD_CAN_ABORT)
 
-    def cancel():
-        simkey(sim, dlg, ord(' '))
-
-    wx.CallLater(1000, cancel)
-
-    assert not progress.Bounce.runWithBounce(func, dlg=dlg)
+    with mock.patch('wx.ProgressDialog.WasCancelled', return_value=True):
+        assert not progress.Bounce.runWithBounce(func, dlg=dlg)
