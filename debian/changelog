@@ -1,3 +1,9 @@
+fsleyes-widgets (0.2.0-2) neurodebian; urgency=medium
+
+  * debian/patches/up_deprecation -- relax version dependency
+
+ -- Yaroslav Halchenko <debian@onerussian.com>  Fri, 30 Mar 2018 12:35:54 -0400
+
 fsleyes-widgets (0.2.0-1) neurodebian; urgency=medium
 
   * New upstream release.
